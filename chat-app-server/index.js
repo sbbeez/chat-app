@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const getIp = require("./middleware/ip.middleware").ipMiddleware;
 const { authenticateForWs } = require("./middleware/auth.middleware");
+const { addChatMessage } = require("./controller/chat.controller");
 
 const app = express();
 var http = require('http').Server(app);
@@ -14,6 +15,7 @@ app.use((req, res, next) => getIp(req, res, next));
 
 //routes
 require("./routes/auth.route")(app);
+require("./routes/chat.route")(app);
 
 
 let connectedUsers = [];
@@ -45,8 +47,9 @@ nns.on("connection", (socket) => {
         }
         io.of('chat').emit('users_list_changed', connectedUsers);
     });
-    socket.on("message", (data) => {
+    socket.on("message", async (data) => {
         if (userSocketId[data.socketListenId]) socket.broadcast.emit(data.socketListenId, data);
+        await addChatMessage({ message: data.message, user_socket_id: `user_${[data.socketListenId.split("_")[1], data.senderSocketId.split("_")[1]].sort().join("_user_")}`, sender_socket_id: data.socketListenId });
     })
 });
 

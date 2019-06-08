@@ -5,6 +5,11 @@ CREATED_ON TIMESTAMPTZ DEFAULT NOW(),
 UPDATED_ON TIMESTAMPTZ DEFAULT NOW(),
 CONSTRAINT CHK_MIN_LEN_EMAIL CHECK(LENGTH(EMAIL_ID) >= 7));
 
+create table chat_history(chat_history_id SERIAL CONSTRAINT pk_ch_id PRIMARY KEY,
+CREATED_ON TIMESTAMPTZ DEFAULT NOW(),
+message varchar(10000),
+user_socket_id varchar(10000),
+sent_by varchar(1000));
 
 insert into users(username, email_id, created_on, updated_on)
 values('senthil','senthilbalaji@gmail.com',now(), now());

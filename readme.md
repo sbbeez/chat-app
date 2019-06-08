@@ -10,6 +10,8 @@ The above project is a simple web chat app, which can be used to chat all whoeve
 * Able to chat any user in online
 * Very light weight as there is not much of data streaming.
 * No history
+* Persistent storing of recent messages
+* Sign up
 
 ## Tech Stack Used
 
@@ -17,6 +19,7 @@ The above project is a simple web chat app, which can be used to chat all whoeve
 * Express.js
 * React.js
 * Postgresql
+* Socket.io
 
 ## Tech Stack that will Append
 
@@ -30,7 +33,6 @@ This App is deployed in AWS. Log-On to [http://3.17.135.197:3502](http://3.17.13
 Having **password** as *pasword* for both the accounts.
 
 ## Features To Be added
-* Sign up
 * Notification-in-app when new user pings
-* Persistent storing of recent messages
 * searching user
+* Chat history, list of users, even when there are not in online

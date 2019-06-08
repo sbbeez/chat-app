@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Checkbox } from 'antd';
+import { Icon, Input } from 'antd';
 
 import { emitEvent, onMessageReceived, onUserChange, setSocket } from "../services/socket";
-
+import { getRecentChat } from "../services/api";
 import "../styles/chat.css";
-import { Drawer, Button } from 'antd';
+import liveChat from '../assets/liveChat.png';
+import { Drawer } from 'antd';
+
+
 const Search = Input.Search;
 class Chat extends Component {
   constructor() {
@@ -31,10 +34,15 @@ class Chat extends Component {
   }
 
 
-  onUserSelected(user) {
-    let newMessageList = []
+  async onUserSelected(user) {
     this.setState({ currentUser: user, messageList: [] });
     this.onClose();
+    let messages = await getRecentChat(user.socketListenId, `user_${localStorage.getItem("chat_app_user_token")}`);
+    messages = messages.map(m => ({
+      message: m.message,
+      received: m.sent_by != user.socketListenId ? true : false
+    }));
+    this.setState({ messageList: messages });
   }
 
   componentDidUpdate() {
@@ -94,12 +102,18 @@ class Chat extends Component {
           visible={this.state.visible}
         >
           <br /> <br />
-          <h3 style={{ textAlign: "center" }}>List of Users</h3>
+          <h3 style={{ textAlign: "center" }}>Menu</h3>
+          <p onClick={async () => {
+            this.onClose();
+            this.setState({ messageList: [], currentUser: "" })
+          }}
+            className="userList">Home</p>
           <div style={{ width: "100%", backgroundColor: "#000", height: "2px" }}></div>
           <br />
+          <h3 style={{ textAlign: "center" }}>Online Users</h3>
           {this.state.usersList.map(u => {
             return <p
-              onClick={() => this.onUserSelected(u)}
+              onClick={async () => await this.onUserSelected(u)}
               key={u.socketListenId}
               className="userList">{u.username}</p>
           })}
@@ -111,7 +125,13 @@ class Chat extends Component {
         <div style={{ width: '100%', height: '200px', float: "left", clear: "both" }}
           ref={(el) => { this.messagesEnd = el; }}>
         </div>
-        <div className="chat-text-box">
+        {this.state.currentUser == "" ? (<div style={{ marginTop: "-20px", display: "flex", alignItems: 'center', justifyContent: "center", flexDirection: "column", width: "100%" }}>
+          <img src={liveChat} alt="Logo" style={{ width: "300px", height: "300px" }} />
+          <br />
+          <h3 style={{ textAlign: "center" }}>Click on Menu <Icon onClick={() => this.showDrawer()}
+            type="menu"
+            style={{ color: 'rgba(0,0,0)', padding: 20 }} /> to see chat with people in Online</h3>
+        </div>) : (<div className="chat-text-box">
           <Search
             placeholder="Type your Message"
             enterButton="Send"
@@ -125,7 +145,7 @@ class Chat extends Component {
               this.setState({ typedMessage: "" });
             }}
           />
-        </div>
+        </div>)}
       </div>
     );
   }
