@@ -1,11 +1,15 @@
 import { LOGIN } from "./url";
-
+import { message } from 'antd';
 export const loginUser = async (body, history) => {
   try {
     let result = await fetch(LOGIN, { method: "POST", body: JSON.stringify(body) });
     let res = await result.json();
-    localStorage.setItem("chat_app_user_token", res.token);
-    history.push("/chat");
+    if (result.status == 200) {
+      localStorage.setItem("chat_app_user_token", res.token);
+      history.push("/chat");
+    } else {
+      message.error(res.message);
+    }
     return res;
   } catch (err) {
     console.log(err.toString());

@@ -2,7 +2,7 @@ import socketIOClient from 'socket.io-client';
 let socket = null;
 
 export const setSocket = () => {
-  socket = socketIOClient('http://localhost:9090/chat');
+  socket = socketIOClient('http://3.17.135.197:3501/chat');
 }
 
 export const onUserChange = (callback) => {
