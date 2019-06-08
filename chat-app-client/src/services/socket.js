@@ -1,8 +1,9 @@
 import socketIOClient from 'socket.io-client';
+import { CHAT } from "./url";
 let socket = null;
 
 export const setSocket = () => {
-  socket = socketIOClient('http://3.17.135.197:3501/chat');
+  socket = socketIOClient(CHAT);
 }
 
 export const onUserChange = (callback) => {

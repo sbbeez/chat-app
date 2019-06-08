@@ -51,7 +51,9 @@ class LoginForm extends Component {
                 />,
               )}
             </Form.Item>
-            <div style={{ textAlign: "center", marginBottom: 20 }}><a>first time? Register Now</a></div>
+            <div style={{ textAlign: "center", marginBottom: 20 }}>
+              <a onClick={() => this.props.history.push("/signup")}>first time? Register Now</a>
+            </div>
             <Button style={{ width: 320 }} type="primary" htmlType="submit" className="login-form-button">
               Log in
           </Button>

@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // screen imports
 import Login from "./screens/Login";
 import Chat from "./screens/Chat";
+import SignUp from "./screens/SignUp";
 
 
 
@@ -24,6 +25,7 @@ class App extends Component {
       <Router>
         <Route path="/login" exact component={Login} />
         <Route path="/chat" exact component={Chat} />
+        <Route path="/signup" exact component={SignUp} />
         <Route path="/" exact component={Login} />
       </Router>
     );
