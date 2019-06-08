@@ -1,6 +1,6 @@
 # Simple Web Chat App
 
-The above project is a simple web chat app, which can be used to chat all whoever in online. App works real time and whenever user login/logout the data will be updated in list of users.
+The above project is a simple web chat app, which can be used to chat all whoever in online. App works real time and whenever user login/logout the data will be updated in list of users. Since all this app is developed in almost 1 day and concentrated mostly on deployment and features. There is actually a list of issues(Non-feature), Please refer #Known Issues. 
 
 
 # Features
@@ -36,3 +36,9 @@ Having **password** as *pasword* for both the accounts.
 * Notification-in-app when new user pings
 * searching user
 * Chat history, list of users, even when there are not in online
+
+## Known Issues
+* Mobile Responsive
+* Validation when directly hitting the API
+* Security wise, easily hackable
+* Not Much of coding standards followed
