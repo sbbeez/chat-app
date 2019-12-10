@@ -20,6 +20,9 @@ The above project is a simple web chat app, which can be used to chat all whoeve
 * React.js
 * Postgresql
 * Socket.io
+* Docker
+* Docker-compose
+* Nginx
 
 ## Tech Stack that will Append
 
