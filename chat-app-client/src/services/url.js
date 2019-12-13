@@ -1,5 +1,5 @@
-export const ROOT_URL = `http://3.17.135.197:3501/`;
-// export const ROOT_URL = `http://localhost:3501/`;
+// export const ROOT_URL = `http://${process.env.HOST}:${process.env.PORT}/`;
+export const ROOT_URL = `http://localhost:3501/`;
 
 export const ROOT_URL_API = `${ROOT_URL}api/`;
 

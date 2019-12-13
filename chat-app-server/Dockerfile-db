@@ -1,0 +1,4 @@
+FROM postgres
+COPY ./dbconnection/*sql /docker-entrypoint-initdb.d/
+USER postgres
+EXPOSE 5432

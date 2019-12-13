@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const getIp = require("./middleware/ip.middleware").ipMiddleware;
 const { authenticateForWs } = require("./middleware/auth.middleware");
 const { addChatMessage } = require("./controller/chat.controller");
+const { executePgQuery } = require("./dbconnection/postgres");
 
 const app = express();
 var http = require("http").Server(app);
@@ -16,7 +17,17 @@ app.use((req, res, next) => getIp(req, res, next));
 //routes
 require("./routes/auth.route")(app);
 require("./routes/chat.route")(app);
-app.get("/health-check", (req, res) => res.send("app-started-and-working"));
+app.get("/health-check", (req, res) => {
+  res.send("app-started-and-working");
+});
+app.get("/db-health-check", async (req, res) => {
+  try {
+    let dbRes = await executePgQuery("select 1");
+    res.send(dbRes);
+  } catch (err) {
+    res.send(err.toString());
+  }
+});
 
 let connectedUsers = [];
 let userSocketId = {};
@@ -64,4 +75,4 @@ nns.on("connection", socket => {
   });
 });
 
-http.listen(3501);
+http.listen(3502);

@@ -1,15 +1,17 @@
+CREATE DATABASE chatapp;
+
+\c chatapp
+
 CREATE TABLE USERS(USER_ID SERIAL CONSTRAINT PK_USER PRIMARY KEY,
 USERNAME VARCHAR(30) CONSTRAINT CHK_MIN_LEN_UN CHECK(LENGTH(USERNAME) >= 3) NOT NULL,
+PASSWORD VARCHAR(30),
 EMAIL_ID VARCHAR(150) CONSTRAINT UNQ_EMAIL UNIQUE NOT NULL,
 CREATED_ON TIMESTAMPTZ DEFAULT NOW(),
 UPDATED_ON TIMESTAMPTZ DEFAULT NOW(),
 CONSTRAINT CHK_MIN_LEN_EMAIL CHECK(LENGTH(EMAIL_ID) >= 7));
 
-create table chat_history(chat_history_id SERIAL CONSTRAINT pk_ch_id PRIMARY KEY,
+CREATE TABLE chat_history(chat_history_id SERIAL CONSTRAINT pk_ch_id PRIMARY KEY,
 CREATED_ON TIMESTAMPTZ DEFAULT NOW(),
 message varchar(10000),
 user_socket_id varchar(10000),
 sent_by varchar(1000));
-
-insert into users(username, email_id, created_on, updated_on)
-values('senthil','senthilbalaji@gmail.com',now(), now());

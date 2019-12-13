@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  db:
+    build:
+      context: ./chat-app-server
+      dockerfile: Dockerfile-db
+    image: chat-app-db-compose
+    container_name: chat-app-db-compose
+    ports:
+      - "5432:5432"
+  frontend:
+    build: ./chat-app-client/
+    image: chat-app-frontend-compose
+    container_name: chat-app-frontend-compose
+    ports:
+      - "3500:3502"
+    environment:
+      HOST: "chat-app-backend-compose"
+      PORT: 3502
+  backend:
+    build: ./chat-app-server
+    image: chat-app-backend-compose
+    container_name: chat-app-backend-compose
+    ports:
+      - "3501:3502"
+    environment:
+      DB_HOST: "chat-app-db-compose"
