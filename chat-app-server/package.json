@@ -14,7 +14,7 @@
     "cors": "^2.8.5",
     "cryptr": "^4.0.2",
     "elasticsearch": "^16.1.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-input-validation": "^1.0.10",
     "pg": "^7.11.0",
     "request-ip": "^2.1.3",
